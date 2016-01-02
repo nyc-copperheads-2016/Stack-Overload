@@ -56,4 +56,6 @@ Rails.application.routes.draw do
   #   end
 
   resources :users, only: [:new, :create]
+  get 'login' => 'sessions#new'
+  get 'logout'=> 'sessions#destroy'
 end

@@ -1,3 +1,5 @@
+<h2>List of Questions</h2>
+
 <% @questions.each do |question| %>
-<%=link_to question.title, questions_path %>
+<%=link_to question.title, question_path(question.id) %>
 <% end %>

@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :votes
   validates :username, uniqueness: true, presence: true, length: {minimum: 3}
-  validates :password_digest, presence: true, length: {minimum: 6}
+  validates :password, presence: true, length: {minimum: 6}
   validates_confirmation_of :password, :confirm => :password_confirmation
 
   def password_confirmation_matches

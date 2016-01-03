@@ -9,9 +9,7 @@ class Answer < ActiveRecord::Base
     self.order(:created_at)[0].question_id
   end
 
-
   def count_votes
     votes.map{|vote| vote.value}.reduce(:+)
   end
-
 end

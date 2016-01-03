@@ -1,4 +1,5 @@
 class AnswersController < ApplicationController
+  before_action :ensure_logged_in, only:[:create]
   def create
     question = Question.find_by(id: params[:question_id])
     @answer = current_user.answers.build(answer_params)

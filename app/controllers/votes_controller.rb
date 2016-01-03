@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  before_action :ensure_logged_in, only:[:create]
 
   def new
     @vote = Vote.new

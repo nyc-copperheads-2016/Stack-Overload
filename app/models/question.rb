@@ -16,6 +16,13 @@ class Question < ActiveRecord::Base
     Question.find(Answer.newest_answer_id)
   end
 
+  def accepted_answer
+
+  end
+
+  def top_votes
+    Question.answers.order(:votes)
+  end
 
   def count_votes
     votes.map{|vote| vote.value}.reduce(:+)

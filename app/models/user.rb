@@ -14,8 +14,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.vote_count
-    self.votes_for.count
+  def vote_count
+    votes_for.map{|vote| vote.value}.reduce(:+)
   end
 
 

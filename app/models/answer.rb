@@ -1,4 +1,5 @@
 class Answer < ActiveRecord::Base
+
   has_many :comments, :as => :commentable
   has_many :votes, :as => :votable
   belongs_to :user
@@ -8,8 +9,9 @@ class Answer < ActiveRecord::Base
     self.order(:created_at)[0].question_id
   end
 
-  def self.vote_count
-    self.votes.count
+
+  def count_votes
+    votes.map{|vote| vote.value}.reduce(:+)
   end
 
 end

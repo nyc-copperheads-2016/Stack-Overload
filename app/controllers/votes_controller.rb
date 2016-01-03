@@ -8,15 +8,21 @@ class VotesController < ApplicationController
       vote = current_user.votes.build(vote_params)
       vote.votable_type = "Comment"
       vote.votable_id = params[:comment_id]
+      comment = Comment.find_by(id: params[:comment_id])
+      if comment.commentable_type == "Question"
+        params[:question_id] = comment.commentable.id
+      else
+        params[:question_id] = comment.commentable.question.id
+      end
     elsif (params.has_key?(:question_id))
       vote = current_user.votes.build(vote_params)
       vote.votable_type = "Question"
       vote.votable_id = params[:question_id]
     else
-      params[:question_id] = Answer.find_by(id: params[:answer_id]).question.id
       vote = current_user.votes.build(vote_params)
       vote.votable_type = "Answer"
       vote.votable_id = params[:answer_id]
+      params[:question_id] = Answer.find_by(id: params[:answer_id]).question.id
     end
 
     if vote.save

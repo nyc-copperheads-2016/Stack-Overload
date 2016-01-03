@@ -16,7 +16,7 @@
   <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: @question} %>
 </div>
 
-<%@question.answers.each do |a|%>
+<%@answers.each do |a|%>
 <div class="answer_header">
   <!--need to make show partial -->
   <p><%=a.body%></p>

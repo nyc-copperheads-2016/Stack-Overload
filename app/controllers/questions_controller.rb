@@ -19,6 +19,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
+    @answers = Answer.top_voted_answer(@question)
     @answer = Answer.new
     @comment = Comment.new
     @vote = Vote.new

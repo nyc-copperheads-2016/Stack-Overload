@@ -7,4 +7,9 @@ class Answer < ActiveRecord::Base
   def self.newest_answer_id
     self.order(:created_at)[0].question_id
   end
+
+  def self.vote_count
+    self.votes.count
+  end
+
 end

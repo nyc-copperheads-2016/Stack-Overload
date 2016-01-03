@@ -15,6 +15,10 @@ class Question < ActiveRecord::Base
   def trending_question
     Question.find(Answer.newest_answer_id)
   end
+
+  def self.vote_count
+    self.votes.count
+  end
 end
 
 

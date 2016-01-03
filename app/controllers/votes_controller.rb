@@ -1,4 +1,5 @@
 class VotesController < ApplicationController
+  before_action :ensure_logged_in, only:[:create]
 
   def new
     @vote = Vote.new
@@ -9,8 +10,10 @@ class VotesController < ApplicationController
       vote.votable_type = "Comment"
       vote.votable_id = params[:comment_id]
       comment = Comment.find_by(id: params[:comment_id])
+      vote.author_id = comment.user.id
       if comment.commentable_type == "Question"
         params[:question_id] = comment.commentable.id
+
       else
         params[:question_id] = comment.commentable.question.id
       end
@@ -18,11 +21,13 @@ class VotesController < ApplicationController
       vote = current_user.votes.build(vote_params)
       vote.votable_type = "Question"
       vote.votable_id = params[:question_id]
+      vote.author_id = Question.find_by(id: params[:question_id]).user.id
     else
       vote = current_user.votes.build(vote_params)
       vote.votable_type = "Answer"
       vote.votable_id = params[:answer_id]
       params[:question_id] = Answer.find_by(id: params[:answer_id]).question.id
+      vote.author_id = Answer.find_by(id: params[:answer_id]).user.id
     end
 
     if vote.save

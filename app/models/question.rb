@@ -4,6 +4,7 @@ class Question < ActiveRecord::Base
   has_many :comments, :as => :commentable
   has_many :votes, :as => :votable
 
+
   def find_accepted_answer
     self.answers.find(accepted_answer_id)
   end
@@ -27,6 +28,7 @@ class Question < ActiveRecord::Base
   def count_votes
     votes.map{|vote| vote.value}.reduce(:+)
   end
+
 end
 
 

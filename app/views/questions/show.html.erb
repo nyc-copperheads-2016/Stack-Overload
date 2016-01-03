@@ -29,8 +29,14 @@
     <p><%=comment.body%></p>
     <h4>Points:<%=comment.count_votes%></h4>
     <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: comment} %>
-  </div>
   <% end %>
+  </div>
+  <%if current_user == @question.user %>
+    <%= form_tag question_path, method: "put" do %>
+      <%= hidden_field_tag "chosen_answer_id", a.id %>
+      <%= submit_tag 'Pick This Answer' %>
+    <% end %>
+  <%end%>
 
 </div>
 <% end %>

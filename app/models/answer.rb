@@ -13,9 +13,7 @@ class Answer < ActiveRecord::Base
     question.answers.select{|answer| answer.count_votes.is_a?(Integer)}.sort{|answer| answer.count_votes}.last
   end
 
-
   def count_votes
     votes.map{|vote| vote.value}.reduce(:+)
   end
-
 end

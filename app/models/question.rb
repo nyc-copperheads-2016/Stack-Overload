@@ -2,7 +2,7 @@ class Question < ActiveRecord::Base
   belongs_to :user
   has_many :answers
   has_many :comments, :as => :commentable
-  has_many :votes, :as => :votes
+  has_many :votes, :as => :votable
 
   def find_accepted_answer
     self.answers.find(accepted_answer_id)
@@ -16,8 +16,9 @@ class Question < ActiveRecord::Base
     Question.find(Answer.newest_answer_id)
   end
 
-  def self.vote_count
-    self.votes.count
+
+  def count_votes
+    votes.map{|vote| vote.value}.reduce(:+)
   end
 end
 

@@ -4,6 +4,8 @@
   <%= link_to "Ask a question", new_question_path %>
 </div>
 
+
+<span><%= link_to "Trending", questions_path(Question.trending_questions) %>
 <ol>
   <% @questions.each do |question| %>
   <li><%=link_to question.title, question_path(question.id) %></li>

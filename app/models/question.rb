@@ -9,24 +9,34 @@ class Question < ActiveRecord::Base
     self.answers.find(accepted_answer_id)
   end
 
-  def most_recent_questions
+  def self.most_recent_questions
     self.order(:created_at)
   end
 
-  def trending_question
-    Question.find(Answer.newest_answer_id)
+  def self.trending_questions
+    Answer.newest_answers.map{|answer| answer.question}
   end
 
   def accepted_answer
 
   end
 
-  def top_votes
-    Question.answers.order(:votes)
+  def self.top_voted_questions
+    questions_sorted_by_most_votes << questions_with_no_votes
   end
 
   def count_votes
     votes.map{|vote| vote.value}.reduce(:+)
+  end
+
+  private
+
+  def self.questions_sorted_by_most_votes
+    Question.all.select{|question| answer.count_votes.is_a?(Integer)}.sort{|answer| answer.count_votes}.reverse
+  end
+
+  def self.questions_with_no_votes
+    Question.all.select{|question| question.count_votes == nil}
   end
 
 end

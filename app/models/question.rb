@@ -8,4 +8,14 @@ class Question < ActiveRecord::Base
     self.answers.find(accepted_answer_id)
   end
 
+  def most_recent_questions
+    self.order(:created_at)
+  end
+
+  def trending_question
+    Question.find(Answer.newest_answer_id)
+  end
 end
+
+
+# Users should be able to see questions sorted three ways: highest-voted, most recent, and "trending."

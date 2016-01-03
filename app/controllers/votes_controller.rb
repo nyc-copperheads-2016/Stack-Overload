@@ -4,22 +4,23 @@ class VotesController < ApplicationController
     @vote = Vote.new
   end
   def create
-    if defined?(params[comment.id])
+    if (params.has_key?(:comment_id))
       vote = current_user.votes.build(vote_params)
-      vote.voteable_id = comment.id
       vote.votable_type = "Comment"
-    elsif define(params[question.id])
+      vote.votable_id = params[:comment_id]
+    elsif (params.has_key?(:question_id))
       vote = current_user.votes.build(vote_params)
       vote.votable_type = "Question"
-      comment.voteable_id = question.id
+      vote.votable_id = params[:question_id]
     else
+      params[:question_id] = Answer.find_by(id: params[:answer_id]).question.id
       vote = current_user.votes.build(vote_params)
       vote.votable_type = "Answer"
-      comment.voteable_id = answer.id
+      vote.votable_id = params[:answer_id]
     end
 
     if vote.save
-      redirect_to question_path(question.id)
+      redirect_to question_path(params[:question_id])
     else
       flash.now[:warning] = 'vote failed'
     end

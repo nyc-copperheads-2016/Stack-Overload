@@ -1,6 +1,8 @@
 <div class="question_header" >
   <h1><%=@question.title%></h1>
+  <h3><%=@question.user.username%></h3>
   <h3><%=@question.body%></h3>
+  <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: @question} %>
   <% @question.comments.each do |comment| %>
     <p><%=comment.body%></p>
   <% end %>

@@ -5,18 +5,20 @@ class CommentsController < ApplicationController
   end
 
   def create
-    if defined?(params[answer.id])
+    if (params.has_key?(:answer_id))
+      @answer = Answer.find_by(id: params[:answer_id])
       comment = current_user.comments.build(comment_params)
-      comment.commentable_id = answer.id
+      comment.commentable_id = params[:answer_id]
       comment.commentable_type = "Answer"
+      params[:question_id] = @answer.question.id
     else
       comment = current_user.comments.build(comment_params)
       comment.commentable_type = "Question"
-      comment.commentable_id = question.id
+      comment.commentable_id = params[:question_id]
     end
 
     if comment.save
-      redirect_to question_path(question.id)  #have to pass in question.id as a local in the question show page when the comment is to an  answer
+      redirect_to question_path(params[:question_id])  #have to pass in question.id as a local in the question show page when the comment is to an  answer
     else
       render 'new'
     end

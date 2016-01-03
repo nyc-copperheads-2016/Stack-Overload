@@ -1,11 +1,24 @@
-<h1><%=@question.title%></h1>
-<h3><%=@question.body%></h3>
-<p><%@question.answers.each do |a|%>
-<div>
+<div class="question_header" >
+  <h1><%=@question.title%></h1>
+  <h3><%=@question.body%></h3>
+  <% @question.comments.each do |comment| %>
+    <p><%=comment.body%></p>
+  <% end %>
+
+  <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: @question} %>
+</div>
+
+<%@question.answers.each do |a|%>
+<div class="answer_header">
   <p><%=a.body%></p>
+  <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: a} %>
+
+  <% a.comments.each do |comment| %>
+    <p><%=comment.body%></p>
+  <% end %>
 </div>
 <% end %>
-</p>
+
 <div>
   <%= form_for [@question, @answer] do |f|%>
     <%= f.label "Type Your Answer Here:" %>
@@ -21,4 +34,7 @@
     <% end %>
   </div>
 </div>
+
+
+
 

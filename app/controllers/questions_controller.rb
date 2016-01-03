@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :ensure_logged_in, only:[:new, :create, :update]
   def index
     @questions = Question.all
   end
@@ -9,7 +10,6 @@ class QuestionsController < ApplicationController
 
   def create
     question = current_user.questions.build(question_params)
-
     if question.save
       redirect_to root_path
     else
@@ -23,6 +23,13 @@ class QuestionsController < ApplicationController
     @comment = Comment.new
     @vote = Vote.new
   end
+
+  def update
+    question = Question.find(params[:id])
+    question.update_attributes(accepted_answer_id: params[:chosen_answer_id])
+    redirect_to question_path(question)
+  end
+
 
 
 private

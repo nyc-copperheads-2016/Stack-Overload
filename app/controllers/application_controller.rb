@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
   end
 
   def ensure_logged_in
-    flash[:notice] = 'Please log in first!'
     redirect_to login_path unless current_user
   end
 end

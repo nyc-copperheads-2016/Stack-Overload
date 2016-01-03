@@ -18,7 +18,16 @@ class Answer < ActiveRecord::Base
   end
 
   def self.top_voted_answer(question)
-    question.answers.select{|answer| answer.count_votes.is_a?(Integer)}.sort{|answer| answer.count_votes}.last
+    top = question.answers.select{|answer| answer.count_votes.is_a?(Integer)}.sort{|answer| answer.count_votes}.reverse
+    question.answers.each do |answer|
+      if top.exclude?(answer)
+        top << answer
+      end
+    end
+    if top.delete_if{|answer| answer.id == question.accepted_answer_id}
+      top.unshift(question.answers.select{|answer| answer.id == question.accepted_answer_id}.first)
+    end
+    top.compact
   end
 
   def count_votes

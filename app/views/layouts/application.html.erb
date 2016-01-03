@@ -11,6 +11,8 @@
     <ul>
       <% if logged_in? %>
       <li><%= link_to 'Log out', logout_path %></li>
+      <p>Hello, <%= current_user.username%>! </p>
+      <p>Total Points: <%= current_user.vote_count %>
       <% else %>
       <li><%= link_to 'Join', new_user_path %></li>
       <li><%= link_to 'Log In', login_path %></li>

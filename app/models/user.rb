@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :answers
   has_many :comments
   has_many :votes
-  has_many :votes_for, class_name: :Vote, foreign_key: :author_id
+  has_many :votes_for, class_name: "Vote", foreign_key: "author_id"
   validates :username, uniqueness: true, presence: true, length: {minimum: 3}
   validates :password, presence: true, length: {minimum: 6}
   validates_confirmation_of :password, :confirm => :password_confirmation

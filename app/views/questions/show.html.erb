@@ -1,0 +1,24 @@
+<h1><%=@question.title%></h1>
+<h3><%=@question.body%></h3>
+<p><%@question.answers.each do |a|%>
+<div>
+  <p><%=a.body%></p>
+</div>
+<% end %>
+</p>
+<div>
+  <%= form_for [@question, @answer] do |f|%>
+    <%= f.label "Type Your Answer Here:" %>
+    <%= f.text_area :body %>
+    <%= f.submit "Submit Answer" %>
+  <% end %>
+
+  <div id="flash-container">
+    <% flash.each do |name, msg| %>
+      <% if msg.is_a?(String) %>
+        <%= content_tag :div, msg, :class => "flash_#{name}" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+

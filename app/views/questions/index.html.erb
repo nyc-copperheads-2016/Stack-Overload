@@ -5,7 +5,7 @@
 </div>
 
 
-<span><%= link_to "Trending", questions_path(Question.trending_questions) %>
+  <span><%= link_to "Trending", trending_path%>  <%= link_to "Highest Voted", voted_path %>  <%= link_to "Most Recent", questions_path %></span>
 <ol>
   <% @questions.each do |question| %>
   <li><%=link_to question.title, question_path(question.id) %></li>

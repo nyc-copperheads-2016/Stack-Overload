@@ -62,8 +62,12 @@ Rails.application.routes.draw do
   get 'login' => 'sessions#new'
   get 'logout'=> 'sessions#destroy'
 
-  resources :questions
 
-  resources :comments, only: [:new, :create]
-
+  resources :questions do
+    resources :answers, only: [:create, :destroy]
+    resources :comments, only: [:new, :create]
+  end
+  resources :answers do
+    resources :comments, only:[:new, :create]
+  end
 end

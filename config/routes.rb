@@ -4,8 +4,8 @@ Rails.application.routes.draw do
 
   root 'questions#index'
 
-  get 'questions' => 'questions#trending', as: :trending
-  get 'questions' => 'questions#voted', as: :voted
+  get 'questions/trending' => 'questions#trending', as: :trending
+  get 'questions/voted' => 'questions#voted', as: :voted
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 

@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
 
   def voted
     @questions = Question.top_voted_questions
+    render 'index'
   end
 
 

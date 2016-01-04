@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
   end
 
   def self.top_voted_questions
-    questions_sorted_by_most_votes << questions_with_no_votes
+    Question.questions_sorted_by_most_votes + Question.questions_with_no_votes
   end
 
   def count_votes
@@ -32,11 +32,11 @@ class Question < ActiveRecord::Base
   private
 
   def self.questions_sorted_by_most_votes
-    Question.all.select{|question| answer.count_votes.is_a?(Integer)}.sort{|answer| answer.count_votes}.reverse
+    all.select{|question| question.count_votes.is_a?(Integer)}.sort_by{|question| question.count_votes}.reverse
   end
 
   def self.questions_with_no_votes
-    Question.all.select{|question| question.count_votes == nil}
+    all.select{|question| question.count_votes == nil}
   end
 
 end

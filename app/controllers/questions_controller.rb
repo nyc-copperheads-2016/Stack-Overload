@@ -4,6 +4,16 @@ class QuestionsController < ApplicationController
     @questions = Question.all
   end
 
+  def trending
+    @questions = Question.trending_questions
+    render 'index'
+  end
+
+  def voted
+    @questions = Question.top_voted_questions
+  end
+
+
   def new
     @question = Question.new
   end

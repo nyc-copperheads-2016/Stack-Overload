@@ -47,7 +47,6 @@ group :development do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'selenium-webdriver'
-
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end

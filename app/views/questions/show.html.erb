@@ -1,7 +1,7 @@
 <div class="question_header" >
   <!--need to make show partial -->
   <h1><%=@question.title%></h1>
-  <h3><%=@question.user.username%></h3>
+  <h3>Asked by: <%=@question.user.username%></h3>
   <h3><%=@question.body%></h3>
   <h4>Points:<%=@question.count_votes%></h4>
   <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: @question} %>
@@ -16,16 +16,18 @@
   <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: @question} %>
 </div>
 
+<div class="answer">
 <%@answers.each do |a|%>
-<div class="answer_header">
   <!--need to make show partial -->
-  <p><%=a.body%></p>
-  <h4>Points:<%=a.count_votes%></h4>
-  <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: a} %>
-  <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: a} %>
-
-  <% a.comments.each do |comment| %>
+  <div class="answer_header">
+    <p><%=a.body%></p>
+    <p>Answered by: <%=a.user.username%></p>
+    <h4>Points:<%=a.count_votes%></h4>
+    <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: a} %>
+    <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: a} %>
+  </div>
   <div class="comments">
+  <% a.comments.each do |comment| %>
     <p><%=comment.body%></p>
     <h4>Points:<%=comment.count_votes%></h4>
     <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: comment} %>
@@ -38,8 +40,8 @@
     <% end %>
   <%end%>
 
-</div>
 <% end %>
+</div>
 
 <div>
   <%= form_for [@question, @answer] do |f|%>

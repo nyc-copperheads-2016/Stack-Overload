@@ -13,11 +13,3 @@
  *= require_tree .
  *= require_self
  */
-
- .answer_header {
-    color: blue;
- }
-
-.comments {
-  color: red;
-}

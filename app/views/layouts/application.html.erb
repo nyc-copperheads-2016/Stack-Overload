@@ -5,14 +5,15 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
   <nav>
     <ul>
+        <center><h1>Welcome To StackOverload!</h1></center>
+
       <% if logged_in? %>
       <li><%= link_to 'Log out', logout_path %></li>
-      <p>Hello, <%= current_user.username%>! </p>
-      <p>Total Points: <%= current_user.vote_count %>
       <% else %>
       <li><%= link_to 'Join', new_user_path %></li>
       <li><%= link_to 'Log In', login_path %></li>

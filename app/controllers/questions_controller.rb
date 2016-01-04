@@ -14,7 +14,6 @@ class QuestionsController < ApplicationController
     render 'index'
   end
 
-
   def new
     @question = Question.new
   end

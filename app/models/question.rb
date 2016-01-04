@@ -4,7 +4,6 @@ class Question < ActiveRecord::Base
   has_many :comments, :as => :commentable
   has_many :votes, :as => :votable
 
-
   def find_accepted_answer
     self.answers.find(accepted_answer_id)
   end
@@ -15,10 +14,6 @@ class Question < ActiveRecord::Base
 
   def self.trending_questions
     Answer.newest_answers.map{|answer| answer.question}
-  end
-
-  def accepted_answer
-
   end
 
   def self.top_voted_questions

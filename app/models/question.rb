@@ -10,7 +10,7 @@ class Question < ActiveRecord::Base
   end
 
   def self.most_recent_questions
-    self.order(:created_at)
+    self.order(:created_at).reverse
   end
 
   def self.trending_questions

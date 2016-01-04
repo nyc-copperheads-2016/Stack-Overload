@@ -1,7 +1,9 @@
 <%= form_for [votable, @vote] do |f| %>
-  <%= f.label :body %>
-  <%= f.radio_button(:value, 1) %>
-  <%= f.radio_button(:value, -1) %>
+<br>
+  <p3> Upvote <p3>
+  <%= f.radio_button(:value, 1) %><br>
+<p2> Downvote </p2>
+  <%= f.radio_button(:value, -1) %><br>
   <%= f.submit %>
 <% end %>
 

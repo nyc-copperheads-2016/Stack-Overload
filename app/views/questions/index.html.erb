@@ -1,11 +1,9 @@
-<h2>List of Questions</h2>
+<center><h1>List of Questions</h1>
 
-<div>
-  <%= link_to "Ask a question", new_question_path %>
-</div>
-
-<ol>
-  <% @questions.each do |question| %>
+   <% @questions.each do |question| %>
   <li><%=link_to question.title, question_path(question.id) %></li>
   <% end %>
-</ol>
+  
+<div>
+    <h2><%= link_to "Click To Ask a question", new_question_path %></h2>
+  </div>

@@ -1,0 +1,39 @@
+body { 
+       background-color: #eeeeee;
+       font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+       font-weight: 500; 
+       font-size: 14px; 
+       color: #1e1e1e;
+}
+
+h1 { 
+  font-family: Georgia, serif; 
+  font-style: italic; 
+  color: 	#BA55D3; 
+}
+
+h2 { 
+  font-family: Georgia, serif; 
+  font-style: italic; 
+  color: 	#BA55D3; 
+}
+
+nav { 
+  background-color: #004060; 
+  color: #ffffff; 
+  padding: 4px 8px;
+}
+
+li {
+  color: #BA55D3 ;
+}
+
+p3 {
+  font-style: italic;
+  color: #008000;
+}
+
+p2 {
+  font-style: italic;
+  color: #DC143C;
+}

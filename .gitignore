@@ -1,3 +1,5 @@
 bin/rspec
 coverage/
 log/test.log
+tmp/
+.bundle/

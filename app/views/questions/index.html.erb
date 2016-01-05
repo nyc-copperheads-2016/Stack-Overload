@@ -1,0 +1,13 @@
+<h2>List of Questions</h2>
+
+<div>
+  <%= link_to "Ask a question", new_question_path %>
+</div>
+
+
+  <span><%= link_to "Trending", trending_path%>  <%= link_to "Highest Voted", voted_path %>  <%= link_to "Most Recent", questions_path %></span>
+<ol>
+  <% @questions.each do |question| %>
+  <li><%=link_to question.title, question_path(question.id) %></li>
+  <% end %>
+</ol>

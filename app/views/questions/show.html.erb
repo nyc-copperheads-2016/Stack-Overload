@@ -1,0 +1,64 @@
+<div class="question_header" >
+  <!--need to make show partial -->
+  <h1><%=@question.title%></h1>
+  <h3>Asked by: <%=@question.user.username%></h3>
+  <h3><%=@question.body%></h3>
+  <h4>Points:<%=@question.count_votes%></h4>
+  <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: @question} %>
+  <% @question.comments.each do |comment| %>
+  <div class="comments">
+    <p><%=comment.body%></p>
+    <h4>Points:<%=comment.count_votes%></h4>
+    <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: comment} %>
+  </div>
+  <% end %>
+
+  <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: @question} %>
+</div>
+
+<div class="answer">
+<%@answers.each do |a|%>
+  <!--need to make show partial -->
+  <div class="answer_header">
+    <p><%=a.body%></p>
+    <p>Answered by: <%=a.user.username%></p>
+    <h4>Points:<%=a.count_votes%></h4>
+    <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: a} %>
+    <%= render :partial =>"comments/new", :controller => "comments", locals: {commentable: a} %>
+  </div>
+  <div class="comments">
+  <% a.comments.each do |comment| %>
+    <p><%=comment.body%></p>
+    <h4>Points:<%=comment.count_votes%></h4>
+    <%= render :partial =>"votes/new", :controller => "votes", locals: {votable: comment} %>
+  <% end %>
+  </div>
+  <%if current_user == @question.user %>
+    <%= form_tag question_path, method: "put" do %>
+      <%= hidden_field_tag "chosen_answer_id", a.id %>
+      <%= submit_tag 'Pick This Answer' %>
+    <% end %>
+  <%end%>
+
+<% end %>
+</div>
+
+<div>
+  <%= form_for [@question, @answer] do |f|%>
+    <%= f.label "Type Your Answer Here:" %>
+    <%= f.text_area :body %>
+    <%= f.submit "Submit Answer" %>
+  <% end %>
+
+  <div id="flash-container">
+    <% flash.each do |name, msg| %>
+      <% if msg.is_a?(String) %>
+        <%= content_tag :div, msg, :class => "flash_#{name}" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+

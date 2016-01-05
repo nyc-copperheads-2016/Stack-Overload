@@ -1,0 +1,3 @@
+bin/rspec
+coverage/
+log/test.log

@@ -2,6 +2,10 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  root 'questions#index'
+
+  get 'questions/trending' => 'questions#trending', as: :trending
+  get 'questions/voted' => 'questions#voted', as: :voted
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
 
@@ -53,4 +57,26 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resources :users, only: [:new, :create]
+
+  resources :sessions, only:[:create, :destroy]
+
+  get 'login' => 'sessions#new'
+  get 'logout'=> 'sessions#destroy'
+
+
+  resources :questions do
+    resources :answers, only: [:create, :destroy]
+    resources :comments, only: [:new, :create]
+    resources :votes, only: [:create, :update]
+  end
+  resources :answers do
+    resources :comments, only:[:new, :create]
+    resources :votes, only: [:create, :update]
+  end
+
+  resources :comments, only: [:new, :create] do
+    resources :votes, only: [:create, :update]
+  end
 end

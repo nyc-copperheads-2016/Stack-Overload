@@ -14,11 +14,11 @@ class User < ActiveRecord::Base
     end
   end
 
+  # This should probably be count_votes and covered by the voting module
+  # I can't see that you call this one anywhere
   def vote_count
-    votes_for.map{|vote| vote.value}.reduce(:+)
+    votes.sum(:value)
   end
-
-
 
   has_secure_password
 end

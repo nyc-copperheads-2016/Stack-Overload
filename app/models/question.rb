@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  include Voting
   belongs_to :user
   has_many :answers
   has_many :comments, :as => :commentable
@@ -24,10 +25,6 @@ class Question < ActiveRecord::Base
     joins("left join votes on votes.votable_id = questions.id \
             and votes.votable_type = 'Question'")
     .group('questions.id').order('sum(votes.value) desc')
-  end
-
-  def count_votes
-    votes.sum(:value)
   end
 
   private

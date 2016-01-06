@@ -1,4 +1,5 @@
 class Answer < ActiveRecord::Base
+  include Voting
 
   has_many :comments, :as => :commentable
   has_many :votes, :as => :votable
@@ -11,9 +12,5 @@ class Answer < ActiveRecord::Base
 
   def self.top_voted_answer(question)
     joins(:votes).where(question:question).group('answers.id').order('sum(votes.value) desc').first
-  end
-
-  def count_votes
-    votes.sum(:value)
   end
 end
